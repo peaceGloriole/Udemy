@@ -13,6 +13,7 @@ function App() {
     setItems((prevItems) => [...prevItems, item]);
   };
 
+  // set delete function in App for global state and pass it to the PackingList component
   const handleDeleteItem = (id) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
@@ -80,6 +81,7 @@ function Form({ onAddItem }) {
 }
 
 function PackingList({ items, onDeleteItem }) {
+  //receive the props and pass it to the item component
   return (
     <div className="list">
       <ol>
@@ -92,6 +94,7 @@ function PackingList({ items, onDeleteItem }) {
 }
 
 function Item({ item, deleteItem }) {
+  //receive the props and use it in onClick event. For delete it needs to be () => otherwise it execute immediately
   return (
     <li>
       <span style={item.packed ? { textDecoration: `line-through` } : {}}>
