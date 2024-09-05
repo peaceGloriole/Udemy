@@ -1,17 +1,27 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-  { id: 3, description: "Charger", quantity: 1, packed: true },
-];
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+//   { id: 3, description: "Charger", quantity: 1, packed: true },
+// ];
 
 function App() {
+  const [items, setItems] = useState([]);
+
+  const handleAddItem = (item) => {
+    setItems((prevItems) => [...prevItems, item]);
+  };
+
+  const handleDeleteItem = (id) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItem={handleAddItem} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -21,7 +31,7 @@ function Logo() {
   return <h1>Travel List</h1>;
 }
 
-function Form() {
+function Form({ onAddItem }) {
   const [description, setDescription] = useState(``);
   const [quantity, setQuantity] = useState(1);
 
@@ -38,6 +48,8 @@ function Form() {
       quantity,
       packed: false,
     };
+
+    onAddItem(newItem);
 
     setDescription(``);
     setQuantity(1);
@@ -67,25 +79,25 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ol>
-        {initialItems.map((el) => (
-          <Item item={el} key={el.id} />
+        {items.map((el) => (
+          <Item item={el} deleteItem={onDeleteItem} key={el.id} />
         ))}
       </ol>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, deleteItem }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: `line-through` } : {}}>
         {item.description} - {item.quantity}
       </span>
-      <button>❌</button>
+      <button onClick={() => deleteItem(item.id)}>❌</button>
     </li>
   );
 }
