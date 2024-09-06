@@ -27,6 +27,8 @@ function App() {
   };
 
   const handleClearList = () => {
+    alert("Are you sure you want to clear the list?");
+
     setItems([]);
   };
 
