@@ -35,7 +35,7 @@ function App() {
         onDeleteItem={handleDeleteItem}
         check={handleCheck}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -76,7 +76,7 @@ function Form({ onAddItem }) {
         onChange={(e) => setQuantity(Number(e.target.value))}
       >
         {Array.from({ length: 10 }, (_, i) => i + 1).map((i) => (
-          <option key={i} value={i + 1}>
+          <option key={i} value={i}>
             {i}
           </option>
         ))}
@@ -123,10 +123,27 @@ function Item({ item, deleteItem, check }) {
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  if (items.length === 0) {
+    return (
+      <footer className="stats">
+        <em>No items packed yet</em>
+      </footer>
+    );
+  }
+
+  const newItems = items.length;
+  const packedItems = items.filter((item) => item.packed).length;
+  const packedPercentage =
+    newItems === 0 ? 0 : Math.round((packedItems / newItems) * 100);
+
   return (
     <footer className="stats">
-      <em>You have X items on your list and you already packed X (X%)</em>
+      <em>
+        {packedPercentage === 100
+          ? "All done!"
+          : `You have ${newItems} items on your list and you already packed ${packedItems} (${packedPercentage}%)`}
+      </em>
     </footer>
   );
 }
