@@ -26,6 +26,10 @@ function App() {
     );
   };
 
+  const handleClearList = () => {
+    setItems([]);
+  };
+
   return (
     <div className="app">
       <Logo />
@@ -34,6 +38,7 @@ function App() {
         items={items}
         onDeleteItem={handleDeleteItem}
         check={handleCheck}
+        handleClearList={handleClearList}
       />
       <Stats items={items} />
     </div>
@@ -92,7 +97,7 @@ function Form({ onAddItem }) {
   );
 }
 
-function PackingList({ items, onDeleteItem, check }) {
+function PackingList({ items, onDeleteItem, check, handleClearList }) {
   //receive the props and pass it to the item component
   return (
     <div className="list">
@@ -101,6 +106,15 @@ function PackingList({ items, onDeleteItem, check }) {
           <Item check={check} item={el} deleteItem={onDeleteItem} key={el.id} />
         ))}
       </ol>
+
+      <div className="actions">
+        <select>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed status</option>
+        </select>
+        <button onClick={() => handleClearList()}>Clear List</button>
+      </div>
     </div>
   );
 }
