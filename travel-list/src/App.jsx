@@ -99,23 +99,43 @@ function Form({ onAddItem }) {
 
 function PackingList({ items, onDeleteItem, check, handleClearList }) {
   //receive the props and pass it to the item component
+  const [sortBy, setSortBy] = useState(`input`);
+
+  let sortItems;
+
+  if (sortBy === "description")
+    sortItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  else if (sortBy === "packed")
+    sortItems = items.slice().sort((a, b) => a.packed - b.packed);
+  else sortItems = items;
+
   return (
     <div className="list">
       <ol>
-        {items.map((el) => (
+        {sortItems.map((el) => (
           <Item check={check} item={el} deleteItem={onDeleteItem} key={el.id} />
         ))}
       </ol>
 
       <div className="actions">
-        <select>
-          <option value="input">Sort by input order</option>
-          <option value="description">Sort by description</option>
-          <option value="packed">Sort by packed status</option>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <SortBy />
         </select>
         <button onClick={() => handleClearList()}>Clear List</button>
       </div>
     </div>
+  );
+}
+
+function SortBy() {
+  return (
+    <>
+      <option value="input">Sort by input order</option>
+      <option value="description">Sort by description</option>
+      <option value="packed">Sort by packed status</option>
+    </>
   );
 }
 
