@@ -118,13 +118,14 @@ function PackingList({ items, onDeleteItem, check, handleClearList }) {
           <Item check={check} item={el} deleteItem={onDeleteItem} key={el.id} />
         ))}
       </ol>
-
-      <div className="actions">
-        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-          <SortBy />
-        </select>
-        <button onClick={() => handleClearList()}>Clear List</button>
-      </div>
+      {items.length > 0 && (
+        <div className="actions">
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <SortBy />
+          </select>
+          <button onClick={() => handleClearList()}>Clear List</button>
+        </div>
+      )}
     </div>
   );
 }
