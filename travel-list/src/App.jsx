@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-// const initialItems = [
-//   { id: 1, description: "Passports", quantity: 2, packed: false },
-//   { id: 2, description: "Socks", quantity: 12, packed: false },
-//   { id: 3, description: "Charger", quantity: 1, packed: true },
-// ];
+import Logo from "./components/Logo";
+import Form from "./components/Form";
+import PackingList from "./components/PackingList";
+import Stats from "./components/Stats";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -44,144 +43,6 @@ function App() {
       />
       <Stats items={items} />
     </div>
-  );
-}
-
-function Logo() {
-  return <h1>Travel List</h1>;
-}
-
-function Form({ onAddItem }) {
-  const [description, setDescription] = useState(``);
-  const [quantity, setQuantity] = useState(1);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!description) {
-      return;
-    }
-
-    const newItem = {
-      id: Date.now(),
-      description,
-      quantity,
-      packed: false,
-    };
-
-    onAddItem(newItem);
-
-    setDescription(``);
-    setQuantity(1);
-  };
-
-  return (
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you want for your travel ?</h3>
-      <select
-        value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
-      >
-        {Array.from({ length: 10 }, (_, i) => i + 1).map((i) => (
-          <option key={i} value={i}>
-            {i}
-          </option>
-        ))}
-      </select>
-      <input
-        type="text"
-        placeholder="Item"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button>Add</button>
-    </form>
-  );
-}
-
-function PackingList({ items, onDeleteItem, check, handleClearList }) {
-  //receive the props and pass it to the item component
-  const [sortBy, setSortBy] = useState(`input`);
-
-  let sortItems;
-
-  if (sortBy === "description")
-    sortItems = items
-      .slice()
-      .sort((a, b) => a.description.localeCompare(b.description));
-  else if (sortBy === "packed")
-    sortItems = items.slice().sort((a, b) => a.packed - b.packed);
-  else sortItems = items;
-
-  return (
-    <div className="list">
-      <ol>
-        {sortItems.map((el) => (
-          <Item check={check} item={el} deleteItem={onDeleteItem} key={el.id} />
-        ))}
-      </ol>
-      {items.length > 0 && (
-        <div className="actions">
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <SortBy />
-          </select>
-          <button onClick={() => handleClearList()}>Clear List</button>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function SortBy() {
-  return (
-    <>
-      <option value="input">Sort by input order</option>
-      <option value="description">Sort by description</option>
-      <option value="packed">Sort by packed status</option>
-    </>
-  );
-}
-
-function Item({ item, deleteItem, check }) {
-  //receive the props and use it in onClick event. For delete it needs to be () => otherwise it execute immediately
-  //receive global state via props for check function
-  return (
-    <li>
-      <input
-        type="checkbox"
-        value={item.packed}
-        onClick={() => check(item.id)}
-      />
-      <span style={item.packed ? { textDecoration: `line-through` } : {}}>
-        {item.description} - {item.quantity}
-      </span>
-      <button onClick={() => deleteItem(item.id)}>❌</button>
-    </li>
-  );
-}
-
-function Stats({ items }) {
-  if (items.length === 0) {
-    return (
-      <footer className="stats">
-        <em>No items packed yet</em>
-      </footer>
-    );
-  }
-
-  const newItems = items.length;
-  const packedItems = items.filter((item) => item.packed).length;
-  const packedPercentage =
-    newItems === 0 ? 0 : Math.round((packedItems / newItems) * 100);
-
-  return (
-    <footer className="stats">
-      <em>
-        {packedPercentage === 100
-          ? "All done!"
-          : `You have ${newItems} items on your list and you already packed ${packedItems} (${packedPercentage}%)`}
-      </em>
-    </footer>
   );
 }
 
