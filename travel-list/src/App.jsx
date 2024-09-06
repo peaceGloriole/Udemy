@@ -18,11 +18,23 @@ function App() {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const handleCheck = (id) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  };
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItem={handleAddItem} />
-      <PackingList items={items} onDeleteItem={handleDeleteItem} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        check={handleCheck}
+      />
       <Stats />
     </div>
   );
@@ -80,31 +92,30 @@ function Form({ onAddItem }) {
   );
 }
 
-function PackingList({ items, onDeleteItem }) {
+function PackingList({ items, onDeleteItem, check }) {
   //receive the props and pass it to the item component
   return (
     <div className="list">
       <ol>
         {items.map((el) => (
-          <Item item={el} deleteItem={onDeleteItem} key={el.id} />
+          <Item check={check} item={el} deleteItem={onDeleteItem} key={el.id} />
         ))}
       </ol>
     </div>
   );
 }
 
-function Item({ item, deleteItem }) {
-  const [check, isCheck] = useState(item.packed);
-
-  const handleCheck = () => {
-    isCheck(!check);
-  };
+function Item({ item, deleteItem, check }) {
   //receive the props and use it in onClick event. For delete it needs to be () => otherwise it execute immediately
+  //receive global state via props for check function
   return (
     <li>
-      <input type="checkbox" value={check} onClick={handleCheck} />
-      <span style={check ? { textDecoration: `line-through` } : {}}>
-        {/* quick fix for the packed visibility in the component with local state */}
+      <input
+        type="checkbox"
+        value={item.packed}
+        onClick={() => check(item.id)}
+      />
+      <span style={item.packed ? { textDecoration: `line-through` } : {}}>
         {item.description} - {item.quantity}
       </span>
       <button onClick={() => deleteItem(item.id)}>❌</button>
