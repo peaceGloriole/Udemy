@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Item from "./Item";
 
 const faqs = [
   {
@@ -17,10 +16,14 @@ const faqs = [
 ];
 
 export default function Accordion() {
-  const [isOpen, setisOpen] = useState(null);
+  const [isOpen, setisOpen] = useState([]);
 
   const handleToggle = (index) => {
-    setisOpen(isOpen === index ? null : index);
+    if (isOpen.includes(index)) {
+      setisOpen(isOpen.filter((i) => i !== index));
+    } else {
+      setisOpen([...isOpen, index]);
+    }
   };
 
   return (
@@ -28,13 +31,13 @@ export default function Accordion() {
       {faqs.map((faq, index) => (
         <div
           onClick={() => handleToggle(index)}
-          className={isOpen === index ? "item open" : "item"}
+          className={isOpen.includes(index) ? "item open" : "item"}
           key={index}
         >
           <span className="number">0{index + 1}</span>
           <p>{faq.title}</p>
-          {isOpen === index ? <span>-</span> : <span>+</span>}
-          {isOpen === index && <p className="content-box">{faq.text}</p>}
+          {isOpen.includes(index) ? <span>-</span> : <span>+</span>}
+          {isOpen.includes(index) && <p className="content-box">{faq.text}</p>}
         </div>
       ))}
       ;
