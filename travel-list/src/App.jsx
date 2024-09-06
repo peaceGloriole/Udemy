@@ -94,10 +94,17 @@ function PackingList({ items, onDeleteItem }) {
 }
 
 function Item({ item, deleteItem }) {
+  const [check, isCheck] = useState(item.packed);
+
+  const handleCheck = () => {
+    isCheck(!check);
+  };
   //receive the props and use it in onClick event. For delete it needs to be () => otherwise it execute immediately
   return (
     <li>
-      <span style={item.packed ? { textDecoration: `line-through` } : {}}>
+      <input type="checkbox" value={check} onClick={handleCheck} />
+      <span style={check ? { textDecoration: `line-through` } : {}}>
+        {/* quick fix for the packed visibility in the component with local state */}
         {item.description} - {item.quantity}
       </span>
       <button onClick={() => deleteItem(item.id)}>❌</button>
