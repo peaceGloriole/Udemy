@@ -48,14 +48,16 @@ function App() {
       balance: 0,
     };
 
-    console.log(newFriend);
+    setFriends([...friends, newFriend]);
 
     setName("");
     setImage("https://i.pravatar.cc/48");
     setClicked(false);
   };
 
-  // function handleAddFriend(friend)
+  // function handleAddFriend(friend) {
+  //   setFriends((prevFriends) => [...prevFriends, friend]);
+  // }
 
   const formProps = {
     handleSubmit,
@@ -70,7 +72,7 @@ function App() {
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
+        <FriendsList friends={friends} />
         <FriendAddForm formProps={formProps} />
       </div>
       <FormSplit />
