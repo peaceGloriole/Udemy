@@ -71,16 +71,22 @@ function App() {
   };
 
   function handleSelection(friend) {
-    setSelected(friend);
+    setSelected((prevSelected) =>
+      prevSelected?.id === friend.id ? null : friend
+    );
   }
 
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends} onSelect={handleSelection} />
+        <FriendsList
+          friends={friends}
+          onSelect={handleSelection}
+          selected={selected}
+        />
         <FriendAddForm formProps={formProps} />
       </div>
-      {selected && <FormSplit friends={selected} />}
+      {selected && <FormSplit friends={friends} />}
     </div>
   );
 }
