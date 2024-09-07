@@ -1,3 +1,5 @@
+import Button from "../Button";
+
 export default function Friend({ friend }) {
   const balanceColor = (balance) => {
     if (balance === 0) return "";
@@ -15,7 +17,7 @@ export default function Friend({ friend }) {
           ? `You owe ${friend.name} ${Math.abs(friend.balance)}$`
           : `${friend.name} owes you ${Math.abs(friend.balance)}$`}
       </p>
-      <button className="button">Select</button>
+      <Button>Select</Button>
     </li>
   );
 }
