@@ -1,4 +1,3 @@
-import FriendAddForm from "./friendAddForm/FriendAddForm";
 import Friend from "./friendItem/Friend";
 
 const initialFriends = [
@@ -28,7 +27,6 @@ export default function FriendsList() {
       {initialFriends.map((friend) => (
         <Friend key={friend.id} friend={friend} />
       ))}
-      <FriendAddForm />
     </ul>
   );
 }
