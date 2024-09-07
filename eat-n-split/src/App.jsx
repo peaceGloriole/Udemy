@@ -1,6 +1,6 @@
+import FormSplit from "./components/FormSplit";
 import FriendsList from "./components/FriendsList";
 import FriendAddForm from "./components/friendAddForm/FriendAddForm";
-import Button from "./components/Button";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <FriendsList />
         <FriendAddForm />
       </div>
+      <FormSplit />
     </div>
   );
 }
