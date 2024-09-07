@@ -29,6 +29,7 @@ function App() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("https://i.pravatar.cc/48");
   const [clicked, setClicked] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   const handleClick = () => {
     setClicked((prevClick) => !prevClick);
@@ -69,13 +70,17 @@ function App() {
     handleClick,
   };
 
+  function handleSelection(friend) {
+    setSelected(friend);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends} />
+        <FriendsList friends={friends} onSelect={handleSelection} />
         <FriendAddForm formProps={formProps} />
       </div>
-      <FormSplit />
+      {selected && <FormSplit friends={selected} />}
     </div>
   );
 }

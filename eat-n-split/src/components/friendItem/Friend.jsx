@@ -1,6 +1,7 @@
 import Button from "../Button";
 
-export default function Friend({ friend }) {
+export default function Friend({ friend, onSelect }) {
+
   const balanceColor = (balance) => {
     if (balance === 0) return "";
     return balance < 0 ? `red` : `green`;
@@ -17,7 +18,7 @@ export default function Friend({ friend }) {
           ? `You owe ${friend.name} ${Math.abs(friend.balance)}$`
           : `${friend.name} owes you ${Math.abs(friend.balance)}$`}
       </p>
-      <Button>Select</Button>
+      <Button onClick={() => onSelect(friend)}>Select</Button>
     </li>
   );
 }
