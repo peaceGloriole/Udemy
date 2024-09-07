@@ -1,24 +1,35 @@
-import { useState } from "react";
 import Button from "../Button";
 
-export default function FriendAddForm() {
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked((prevClick) => !prevClick);
-  };
-
+export default function FriendAddForm({
+  formProps: {
+    handleSubmit,
+    name,
+    setName,
+    image,
+    setImage,
+    clicked,
+    handleClick,
+  },
+}) {
   return (
     <>
       <Button onClick={handleClick}>{clicked ? "Close" : "Add Friend"}</Button>
 
       {clicked && (
-        <form className="form-add-friend">
+        <form className="form-add-friend" onSubmit={handleSubmit}>
           <label>Friend name</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
           <label>Image URL</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+          />
 
           <Button>Add</Button>
         </form>
