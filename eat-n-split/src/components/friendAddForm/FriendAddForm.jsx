@@ -10,11 +10,7 @@ export default function FriendAddForm() {
 
   return (
     <>
-      {!clicked ? (
-        <Button onClick={handleClick}>Add Friend</Button>
-      ) : (
-        <Button onClick={handleClick}>Close</Button>
-      )}
+      <Button onClick={handleClick}>{clicked ? "Close" : "Add Friend"}</Button>
 
       {clicked && (
         <form className="form-add-friend">
