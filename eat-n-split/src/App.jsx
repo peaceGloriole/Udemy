@@ -74,6 +74,7 @@ function App() {
     setSelected((prevSelected) =>
       prevSelected?.id === friend.id ? null : friend
     );
+    setClicked(false);
   }
 
   return (
