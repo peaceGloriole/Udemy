@@ -1,10 +1,10 @@
 import LeftBox from "./LeftBox/LeftBox";
 import RightBox from "./RightBox/RightBox";
 
-export default function Main() {
+export default function Main({ movies }) {
   return (
     <main className="main">
-      <LeftBox />
+      <LeftBox movies={movies} />
 
       <RightBox />
     </main>
