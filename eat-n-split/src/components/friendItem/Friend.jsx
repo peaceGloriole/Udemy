@@ -1,9 +1,6 @@
-import { useState } from "react";
 import Button from "../Button";
 
 export default function Friend({ friend, onSelect, selected }) {
-  const [isClicked, setIsClicked] = useState(false);
-
   const isSelected = selected?.id === friend.id;
 
   const balanceColor = (balance) => {
@@ -12,7 +9,6 @@ export default function Friend({ friend, onSelect, selected }) {
   };
 
   const handleClick = () => {
-    setIsClicked((prevClick) => !prevClick);
     onSelect(friend);
   };
 
@@ -27,7 +23,7 @@ export default function Friend({ friend, onSelect, selected }) {
           ? `You owe ${friend.name} ${Math.abs(friend.balance)}$`
           : `${friend.name} owes you ${Math.abs(friend.balance)}$`}
       </p>
-      <Button onClick={handleClick}>{isClicked ? "Close" : "Select"}</Button>
+      <Button onClick={handleClick}>{isSelected ? "Close" : "Select"}</Button>
     </li>
   );
 }
