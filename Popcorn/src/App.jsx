@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import NavBar from "./Components/NavBar";
 import Main from "./Components/Main";
+import Search from "./Components/NavBar/Search";
+import FoundResults from "./Components/NavBar/FoundResults";
 
 const tempMovieData = [
   {
@@ -32,7 +34,10 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
+      <NavBar>
+        <Search />
+        <FoundResults movies={movies} />
+      </NavBar>
 
       <Main movies={movies} />
     </>
