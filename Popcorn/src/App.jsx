@@ -4,6 +4,9 @@ import NavBar from "./Components/NavBar";
 import Main from "./Components/Main";
 import Search from "./Components/NavBar/Search";
 import FoundResults from "./Components/NavBar/FoundResults";
+import LeftBox from "./Components/LeftBox/LeftBox";
+import RightBox from "./Components/RightBox/RightBox";
+import LeftMovieRender from "./Components/LeftBox/LeftMovieRender/LeftMovieRender";
 
 const tempMovieData = [
   {
@@ -39,7 +42,12 @@ export default function App() {
         <FoundResults movies={movies} />
       </NavBar>
 
-      <Main movies={movies} />
+      <Main>
+        <LeftBox>
+          <LeftMovieRender movies={movies} />
+        </LeftBox>
+        <RightBox />
+      </Main>
     </>
   );
 }

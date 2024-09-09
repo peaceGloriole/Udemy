@@ -1,7 +1,6 @@
 import { useState } from "react";
-import LeftMovieRender from "./LeftMovieRender/LeftMovieRender";
 
-export default function LeftBox({ movies }) {
+export default function LeftBox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -12,7 +11,7 @@ export default function LeftBox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <LeftMovieRender movies={movies}/>}
+      {isOpen1 && children}
     </div>
   );
 }

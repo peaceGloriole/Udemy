@@ -1,12 +1,7 @@
-import LeftBox from "./LeftBox/LeftBox";
-import RightBox from "./RightBox/RightBox";
-
-export default function Main({ movies }) {
+export default function Main({ children }) {
   return (
     <main className="main">
-      <LeftBox movies={movies} />
-
-      <RightBox />
+      {children}
     </main>
   );
 }
