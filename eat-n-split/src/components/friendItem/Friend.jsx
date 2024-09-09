@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Button from "../Button";
 
-export default function Friend({ friend, onSelect }) {
+export default function Friend({ friend, onSelect, selected }) {
   const [isClicked, setIsClicked] = useState(false);
+
+  const isSelected = selected?.id === friend.id;
 
   const balanceColor = (balance) => {
     if (balance === 0) return "";
@@ -15,7 +17,7 @@ export default function Friend({ friend, onSelect }) {
   };
 
   return (
-    <li>
+    <li className={isSelected ? "selected" : ""}>
       <img src={friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
       <p className={balanceColor(friend.balance)}>

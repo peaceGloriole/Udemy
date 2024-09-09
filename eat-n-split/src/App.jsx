@@ -86,7 +86,7 @@ function App() {
         />
         <FriendAddForm formProps={formProps} />
       </div>
-      {selected && <FormSplit friends={friends} />}
+      {selected && <FormSplit friends={selected} />}
     </div>
   );
 }
