@@ -56,10 +56,6 @@ function App() {
     setClicked(false);
   };
 
-  // function handleAddFriend(friend) {
-  //   setFriends((prevFriends) => [...prevFriends, friend]);
-  // }
-
   const formProps = {
     handleSubmit,
     name,
@@ -77,6 +73,16 @@ function App() {
     setClicked(false);
   }
 
+  function handleSplitBill(value) {
+    setFriends((friend) =>
+      friends.map((f) =>
+        f.id === selected.id ? { ...f, balance: f.balance + value } : f
+      )
+    );
+
+    setSelected(null);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -87,7 +93,9 @@ function App() {
         />
         <FriendAddForm formProps={formProps} />
       </div>
-      {selected && <FormSplit friends={selected} />}
+      {selected && (
+        <FormSplit friends={selected} onSplitBill={handleSplitBill} />
+      )}
     </div>
   );
 }
