@@ -68,13 +68,15 @@ export default function App() {
       </NavBar>
 
       <Main>
-        <Box>
-          <LeftMovieRender movies={movies} />
-        </Box>
-        <Box>
-          <Summary watched={watched} />
-          <RightMovieRender watched={watched} />
-        </Box>
+        <Box element={<LeftMovieRender movies={movies} />} />
+        <Box
+          element={
+            <>
+              <Summary watched={watched} />
+              <RightMovieRender watched={watched} />
+            </>
+          }
+        />
       </Main>
     </>
   );
