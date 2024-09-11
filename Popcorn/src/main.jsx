@@ -7,7 +7,12 @@ import Star from "./Star.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* <App /> */}
-    <Star maxRating={5}/>
-    <Star maxRating={10}/>
+    <Star maxRating={5} />
+    <Star
+      maxRating={5}
+      size={24}
+      color="red"
+      message={[`Bad`, `Okay`, `Good`, `Great`, `Awesome`]}
+    />
   </React.StrictMode>
 );
