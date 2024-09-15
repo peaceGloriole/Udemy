@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import NavBar from "./Components/NavBar";
 import Main from "./Components/Main";
@@ -8,6 +8,7 @@ import Box from "./Components/LeftBox/LeftBox";
 import LeftMovieRender from "./Components/LeftBox/LeftMovieRender/LeftMovieRender";
 import Summary from "./Components/RightBox/Summary/Summary";
 import RightMovieRender from "./Components/RightBox/RightMovieRender/RightMovieRender";
+import Loader from "./Components/LeftBox/Loader";
 
 const tempMovieData = [
   {
@@ -56,9 +57,26 @@ const tempWatchedData = [
   },
 ];
 
+const query = `interstellar`;
+const key = "6800be64";
+const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=${query}`;
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchMovies = async () => {
+      const response = await fetch(BASE_URL);
+      const data = await response.json();
+      setMovies(data.Search);
+      setIsLoading(false);
+    };
+
+    fetchMovies();
+  }, []);
 
   return (
     <>
@@ -68,15 +86,23 @@ export default function App() {
       </NavBar>
 
       <Main>
-        <Box element={<LeftMovieRender movies={movies} />} />
-        <Box
-          element={
-            <>
-              <Summary watched={watched} />
-              <RightMovieRender watched={watched} />
-            </>
-          }
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Box element={<LeftMovieRender movies={movies} />} />
+        )}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Box
+            element={
+              <>
+                <Summary watched={watched} />
+                <RightMovieRender watched={watched} />
+              </>
+            }
+          />
+        )}
       </Main>
     </>
   );
