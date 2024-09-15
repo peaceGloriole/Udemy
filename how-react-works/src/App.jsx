@@ -39,7 +39,10 @@ function Tabbed({ content }) {
       </div>
 
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} />
+        <TabContent
+          item={content.at(activeTab)}
+          key={content.at(activeTab).summary}
+        />
       ) : (
         <DifferentContent />
       )}
@@ -63,8 +66,23 @@ function TabContent({ item }) {
   const [likes, setLikes] = useState(0);
 
   function handleInc() {
-    setLikes(likes + 1);
+    setLikes((likes) => likes + 1);
   }
+
+  const handleTripleInc = () => {
+    setLikes((likes) => likes + 3);
+  };
+
+  const handleUndo = () => {
+    setLikes(0);
+    setShowDetails(false);
+  };
+
+  const handleUndo2s = () => {
+    setTimeout(() => {
+      handleUndo();
+    }, 2000);
+  };
 
   return (
     <div className="tab-content">
@@ -79,13 +97,14 @@ function TabContent({ item }) {
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleInc}>+</button>
-          <button>+++</button>
+          <button onClick={handleTripleInc}>+++</button>
         </div>
       </div>
 
       <div className="tab-undo">
-        <button>Undo</button>
-        <button>Undo in 2s</button>
+        <button onClick={handleUndo}>Undo</button>
+        <button onClick={handleUndo2s}>Undo in 2s</button>
+        <span></span>
       </div>
     </div>
   );
