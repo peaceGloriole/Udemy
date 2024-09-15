@@ -94,7 +94,11 @@ function App() {
         <FriendAddForm formProps={formProps} />
       </div>
       {selected && (
-        <FormSplit friends={selected} onSplitBill={handleSplitBill} />
+        <FormSplit
+          friends={selected}
+          onSplitBill={handleSplitBill}
+          key={selected.id}
+        />
       )}
     </div>
   );
