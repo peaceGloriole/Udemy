@@ -71,7 +71,7 @@ export default function App() {
   const [selecetedId, setSelectedId] = useState(null);
 
   const handleSelectMovie = (id) => {
-    setSelectedId(id);
+    setSelectedId((s) => (s === id ? null : id));
   };
 
   const handleCloseMovie = () => {
