@@ -10,6 +10,7 @@ import Summary from "./Components/RightBox/Summary/Summary";
 import RightMovieRender from "./Components/RightBox/RightMovieRender/RightMovieRender";
 import Loader from "./Components/Loader";
 import Error from "./Components/Error";
+import MovieDetails from "./Components/MovieDetails";
 
 const tempMovieData = [
   {
@@ -58,20 +59,31 @@ const tempWatchedData = [
   },
 ];
 
-const query = `interstellar`;
 const key = "6800be64";
-const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=${query}`;
 
 export default function App() {
+  const [query, setQuery] = useState("");
+  const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=${query}`;
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(``);
+  const [selecetedId, setSelectedId] = useState(null);
+
+  const handleSelectMovie = (id) => {
+    setSelectedId(id);
+  };
+
+  const handleCloseMovie = () => {
+    setSelectedId(null);
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
+        setError(``);
+
         const response = await fetch(BASE_URL);
 
         if (!response.ok) {
@@ -93,25 +105,39 @@ export default function App() {
     };
 
     fetchMovies();
-  }, []);
+  }, [query]);
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <FoundResults movies={movies} />
       </NavBar>
 
       <Main>
         <Box>
           {isLoading && <Loader />}
-          {!isLoading && !error && <LeftMovieRender movies={movies} />}
+          {!isLoading && !error && (
+            <LeftMovieRender
+              movies={movies}
+              onSelectMovie={handleSelectMovie}
+            />
+          )}
           {error && <Error message={error} />}
         </Box>
 
         <Box>
-          <Summary watched={watched} />
-          <RightMovieRender watched={watched} />
+          {selecetedId ? (
+            <MovieDetails selectedId={selecetedId} onClose={handleCloseMovie} />
+          ) : (
+            <>
+              <Summary watched={watched} />
+              <RightMovieRender
+                onSelectMovie={handleSelectMovie}
+                watched={watched}
+              />
+            </>
+          )}
         </Box>
       </Main>
     </>
