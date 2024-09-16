@@ -21,6 +21,8 @@ export default function MovieDetails({ selectedId, onClose }) {
     getMovieDetails();
   }, [selectedId]);
 
+  // There is a 2 components in the jsx
+
   return (
     <div className="details">
       {isLoading ? (
