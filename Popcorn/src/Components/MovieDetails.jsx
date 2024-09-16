@@ -11,13 +11,13 @@ export default function MovieDetails({ selectedId, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const getMovieDetails = async () => {
+      setIsLoading(true);
       const response = await fetch(BASE_URL);
       const data = await response.json();
       setMovie(data);
+      setIsLoading(false);
     };
-    setIsLoading(false);
     getMovieDetails();
   }, [selectedId]);
 
