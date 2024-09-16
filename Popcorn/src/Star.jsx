@@ -42,8 +42,16 @@ export default function Star({
         ))}
       </div>
       <p style={textStyle}>
-        {message?.length === maxRating
-          ? message[tempRating ? tempRating - 1 : rating - 1]
+        {message && message.length === maxRating
+          ? message[
+              tempRating &&
+              tempRating - 1 >= 0 &&
+              tempRating - 1 < message.length
+                ? tempRating - 1
+                : rating && rating - 1 >= 0 && rating - 1 < message.length
+                ? rating - 1
+                : 0
+            ]
           : tempRating || rating || ``}
       </p>
     </div>
