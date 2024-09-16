@@ -8,7 +8,8 @@ import Box from "./Components/LeftBox/LeftBox";
 import LeftMovieRender from "./Components/LeftBox/LeftMovieRender/LeftMovieRender";
 import Summary from "./Components/RightBox/Summary/Summary";
 import RightMovieRender from "./Components/RightBox/RightMovieRender/RightMovieRender";
-import Loader from "./Components/LeftBox/Loader";
+import Loader from "./Components/Loader";
+import Error from "./Components/Error";
 
 const tempMovieData = [
   {
@@ -65,14 +66,30 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchMovies = async () => {
-      const response = await fetch(BASE_URL);
-      const data = await response.json();
-      setMovies(data.Search);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const response = await fetch(BASE_URL);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data!");
+        }
+
+        const data = await response.json();
+
+        if (data.Response === "False") {
+          throw new Error(`Movie not found!`);
+        }
+
+        setMovies(data.Search);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchMovies();
@@ -86,23 +103,16 @@ export default function App() {
       </NavBar>
 
       <Main>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Box element={<LeftMovieRender movies={movies} />} />
-        )}
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Box
-            element={
-              <>
-                <Summary watched={watched} />
-                <RightMovieRender watched={watched} />
-              </>
-            }
-          />
-        )}
+        <Box>
+          {isLoading && <Loader />}
+          {!isLoading && !error && <LeftMovieRender movies={movies} />}
+          {error && <Error message={error} />}
+        </Box>
+
+        <Box>
+          <Summary watched={watched} />
+          <RightMovieRender watched={watched} />
+        </Box>
       </Main>
     </>
   );
