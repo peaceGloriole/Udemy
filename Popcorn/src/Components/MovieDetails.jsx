@@ -34,7 +34,6 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
     };
 
     onAddWatched(watchedMovie);
-    document.title = `Popcorn`;
     onClose();
   };
 
@@ -52,12 +51,11 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
   useEffect(() => {
     if (!title) return;
     document.title = `Movie - ${title}`;
-  }, [title]);
 
-  const handleClose = () => {
-    document.title = `Popcorn`;
-    onClose();
-  };
+    return () => {
+      document.title = "Popcorn";
+    };
+  }, [title]);
 
   // There is a 2 components in the jsx
 
@@ -68,7 +66,7 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
       ) : (
         <>
           <header>
-            <button className="btn-back" onClick={handleClose}>
+            <button className="btn-back" onClick={onClose}>
               &larr;
             </button>
             <img src={poster} alt={`Poster of ${movie} Movie`} />
