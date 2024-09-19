@@ -8,7 +8,7 @@ import Box from "./Components/LeftBox/LeftBox";
 import LeftMovieRender from "./Components/LeftBox/LeftMovieRender/LeftMovieRender";
 import Summary from "./Components/RightBox/Summary/Summary";
 import RightMovieRender from "./Components/RightBox/RightMovieRender/RightMovieRender";
-import Loader from "./Components/Loader";
+import Loader from "./Components/LeftBox/Loader";
 import Error from "./Components/Error";
 import MovieDetails from "./Components/MovieDetails";
 
@@ -78,6 +78,10 @@ export default function App() {
     setSelectedId(null);
   };
 
+  const handleAddWatched = (movie) => {
+    setWatched((m) => [...m, movie]);
+  };
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -131,7 +135,7 @@ export default function App() {
             <MovieDetails
               selectedId={selecetedId}
               onClose={handleCloseMovie}
-              key={selecetedId}
+              onAddWatched={handleAddWatched}
             />
           ) : (
             <>

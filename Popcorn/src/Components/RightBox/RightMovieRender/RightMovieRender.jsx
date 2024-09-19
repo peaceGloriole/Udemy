@@ -1,10 +1,10 @@
-import Movie from "../../LeftBox/LeftMovieRender/Movie/Movie";
+import WatchedMovie from "./Movie/watchedMovie";
 
 export default function RightMovieRender({ watched }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
-        <Movie key={movie.imdbID} movie={movie} />
+        <WatchedMovie key={movie.imdbRating} movie={movie} />
       ))}
     </ul>
   );
