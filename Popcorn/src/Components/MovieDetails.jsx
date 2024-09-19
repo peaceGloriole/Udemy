@@ -34,6 +34,7 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
     };
 
     onAddWatched(watchedMovie);
+    onClose();
   };
 
   useEffect(() => {
