@@ -48,6 +48,10 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
     getMovieDetails();
   }, [selectedId]);
 
+  useEffect(() => {
+    document.title = title ? `${title}` : "Popcorn";
+  });
+
   // There is a 2 components in the jsx
 
   return (
