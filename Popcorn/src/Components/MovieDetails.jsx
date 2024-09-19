@@ -25,7 +25,7 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
 
   const onAdd = () => {
     const watchedMovie = {
-      imdbRating: selectedId,
+      imdbID: selectedId,
       title,
       year,
       poster,
