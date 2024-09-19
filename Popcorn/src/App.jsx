@@ -40,12 +40,14 @@ export default function App() {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
         setError(``);
 
-        const response = await fetch(BASE_URL);
+        const response = await fetch(BASE_URL, { signal: controller.signal });
 
         if (!response.ok) {
           throw new Error("Failed to fetch data!");
@@ -58,14 +60,21 @@ export default function App() {
         }
 
         setMovies(data.Search);
+        setError(``);
       } catch (error) {
-        setError(error.message);
+        if (error.name !== `AbortError`) {
+          setError(error.message);
+        }
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchMovies();
+
+    return () => {
+      controller.abort();
+    };
   }, [query]);
 
   return (
