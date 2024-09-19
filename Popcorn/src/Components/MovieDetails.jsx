@@ -49,6 +49,20 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
   }, [selectedId]);
 
   useEffect(() => {
+    const callback = (e) => {
+      if (e.key === `Escape`) {
+        onClose();
+      }
+    };
+
+    document.addEventListener(`keydown`, callback);
+
+    return () => {
+      document.removeEventListener(`keydown`, callback);
+    };
+  }, [onClose]);
+
+  useEffect(() => {
     if (!title) return;
     document.title = `Movie - ${title}`;
 
