@@ -16,12 +16,16 @@ const key = "6800be64";
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=${query}`;
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(``);
   const [selecetedId, setSelectedId] = useState(null);
+  const [watched, setWatched] = useState(() => {
+    const storedMovies = localStorage.getItem(`watched`);
+    return storedMovies ? JSON.parse(storedMovies) : [];
+  });
+
+  const BASE_URL = `http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=${query}`;
 
   const handleSelectMovie = (id) => {
     setSelectedId((s) => (s === id ? null : id));
