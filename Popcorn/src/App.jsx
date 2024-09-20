@@ -40,6 +40,10 @@ export default function App() {
   };
 
   useEffect(() => {
+    localStorage.setItem(`watched`, JSON.stringify(watched));
+  }, [watched]);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     const fetchMovies = async () => {
