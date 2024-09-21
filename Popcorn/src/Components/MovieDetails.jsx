@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import Star from "../Star";
 import Loader from "./LeftBox/Loader";
+import { useKeyListener } from "../Hooks/useKeyListener";
 
-const key = "6800be64";
+const key = `6800be64`;
 
+// eslint-disable-next-line react/prop-types
 export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
   const BASE_URL = `http://www.omdbapi.com/?apikey=${key}&i=${selectedId}`;
 
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  useKeyListener(`Escape`, onClose);
 
   const {
     Title: title,
@@ -30,7 +33,7 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
       year,
       poster,
       imdbRating: Number(imdbRating),
-      runtime: Number(runtime.split(" ").at(0)),
+      runtime: Number(runtime.split(` `).at(0)),
     };
 
     onAddWatched(watchedMovie);
@@ -46,28 +49,17 @@ export default function MovieDetails({ selectedId, onClose, onAddWatched }) {
       setIsLoading(false);
     };
     getMovieDetails();
-  }, [selectedId]);
+  }, [selectedId, BASE_URL]);
 
   useEffect(() => {
-    const callback = (e) => {
-      if (e.key === `Escape`) {
-        onClose();
-      }
-    };
+    if (!title) {
+      return;
+    }
 
-    document.addEventListener(`keydown`, callback);
-
-    return () => {
-      document.removeEventListener(`keydown`, callback);
-    };
-  }, [onClose]);
-
-  useEffect(() => {
-    if (!title) return;
     document.title = `Movie - ${title}`;
 
     return () => {
-      document.title = "Popcorn";
+      document.title = `Popcorn`;
     };
   }, [title]);
 
