@@ -16,22 +16,21 @@ import MovieDetails from "./Components/MovieDetails";
 
 export default function App() {
   const [query, setQuery] = useState(``);
-
   const [selecetedId, setSelectedId] = useState(null);
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
+
   const [watched, setWatched] = useState(() => {
     const storedMovies = localStorage.getItem(`watched`);
     return storedMovies ? JSON.parse(storedMovies) : [];
   });
 
-  const { movies, isLoading, error } = useMovies(query);
-
   const handleSelectMovie = (id) => {
     setSelectedId((s) => (s === id ? null : id));
   };
 
-  const handleCloseMovie = () => {
+  function handleCloseMovie() {
     setSelectedId(null);
-  };
+  }
 
   const handleAddWatched = (movie) => {
     setWatched((m) => [...m, movie]);
