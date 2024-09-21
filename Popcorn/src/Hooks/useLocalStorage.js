@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
-export function useLocalStorage() {
-  const [watched, setWatched] = useState(() => {
-    const storedMovies = localStorage.getItem(`watched`);
-    return storedMovies ? JSON.parse(storedMovies) : [];
+export function useLocalStorage(initialState, key) {
+  const [value, setValue] = useState(() => {
+    const storedMovies = localStorage.getItem(key);
+    return storedMovies ? JSON.parse(storedMovies) : initialState;
   });
 
   useEffect(() => {
-    localStorage.setItem(`watched`, JSON.stringify(watched));
-  }, [watched]);
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
 
-  return { watched, setWatched };
+  return [value, setValue];
 }
