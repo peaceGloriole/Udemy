@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from "react";
 
-import Header from "./Header";
-import MainComp from "./MainComp";
-import Loader from "./Loader";
-import Error from "./Error";
-import StartScreen from "./StartScreen";
-import Question from "./Question";
+import Header from "./components/Header";
+import MainComp from "./components/MainComp";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
 
 const initialState = {
   questions: [],
