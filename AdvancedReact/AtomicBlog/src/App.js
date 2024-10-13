@@ -113,15 +113,17 @@ function Posts({ posts }) {
 }
 
 function FormAddPost({ onAddPost }) {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState(``);
+  const [body, setBody] = useState(``);
 
   const handleSubmit = function (e) {
     e.preventDefault();
-    if (!body || !title) return;
+    if (!body || !title) {
+      return;
+    }
     onAddPost({ title, body });
-    setTitle("");
-    setBody("");
+    setTitle(``);
+    setBody(``);
   };
 
   return (
@@ -167,7 +169,7 @@ function Archive({ onAddPost }) {
     <aside>
       <h2>Post archive</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
-        {showArchive ? "Hide archive posts" : "Show archive posts"}
+        {showArchive ? `Hide archive posts` : `Show archive posts`}
       </button>
 
       {showArchive && (
