@@ -102,20 +102,18 @@ function Results() {
 }
 
 function Main() {
-  const { posts, onAddPost } = useContext(PostContext);
   return (
     <main>
-      <FormAddPost onAddPost={onAddPost} />
-      <Posts posts={posts} />
+      <FormAddPost />
+      <Posts />
     </main>
   );
 }
 
 function Posts() {
-  const { posts } = useContext(PostContext);
   return (
     <section>
-      <List posts={posts} />
+      <List />
     </section>
   );
 }
