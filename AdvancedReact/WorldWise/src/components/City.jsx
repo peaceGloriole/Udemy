@@ -1,11 +1,11 @@
 import { useCities } from "../context/CitiesContext";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import styles from "./City.module.css";
 
-import Button from "./Button";
 import Spinner from "./Spinner";
+import BackButton from "./BackButton";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -16,7 +16,6 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { fetchCity, curCity, isLoading } = useCities();
 
@@ -61,16 +60,9 @@ function City() {
           Check out {cityName} on Wikipedia &rarr;
         </a>
       </div>
-
-      <Button
-        type="back"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate(-1);
-        }}
-      >
-        Go Back
-      </Button>
+      <div>
+        <BackButton />
+      </div>
     </div>
   );
 }
