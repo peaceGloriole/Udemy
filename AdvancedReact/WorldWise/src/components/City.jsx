@@ -1,7 +1,8 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from "./City.module.css";
 import { useCities } from "../context/CitiesContext";
 import { useEffect } from "react";
+import Button from "./Button";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -12,6 +13,7 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { fetchCity, curCity } = useCities();
 
@@ -53,9 +55,15 @@ function City() {
         </a>
       </div>
 
-      {/* <div>
-        <ButtonBack />
-      </div> */}
+      <Button
+        type="back"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate(-1);
+        }}
+      >
+        Go Back
+      </Button>
     </div>
   );
 }
