@@ -1,15 +1,13 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./CityList.module.css";
 
 import Spinner from "./Spinner";
 import CityItem from "./CityItem";
 import Message from "./Message";
-import Button from "./Button";
 import { useCities } from "../context/CitiesContext";
+import BackButton from "./BackButton";
 
 export default function CityList() {
   const { cities, isLoading } = useCities();
-  const navigate = useNavigate();
 
   if (isLoading) {
     return <Spinner />;
@@ -26,15 +24,7 @@ export default function CityList() {
           <CityItem city={city} key={city.id} />
         ))}
       </ul>
-      <Button
-        type="back"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate(`/`);
-        }}
-      >
-        Go Back
-      </Button>
+      <BackButton />
     </>
   );
 }
