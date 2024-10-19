@@ -1,11 +1,11 @@
-// "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Form.module.css";
 
 import { useUrlPosition } from "../hooks/useUrlPosition";
+
+import { useCities } from "../context/CitiesContext";
 
 import Button from "./Button";
 import Message from "./Message";
@@ -22,8 +22,8 @@ export function convertToEmoji(countryCode) {
 const BASE_URL = `https://api.bigdatacloud.net/data/reverse-geocode-client`;
 
 function Form() {
-  const [mapLat, mapLng] = useUrlPosition();
   const navigate = useNavigate();
+  const [mapLat, mapLng] = useUrlPosition();
   const [isLoadingGeoData, setIsLoadingGeoData] = useState(false);
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
@@ -32,7 +32,11 @@ function Form() {
   const [emoji, setEmoji] = useState("");
   const [geocodingError, setGeocodingError] = useState("");
 
+  const { createCity, isLoading } = useCities();
+
   useEffect(() => {
+    if (!mapLat && !mapLng) return;
+
     async function fetchGeoData() {
       try {
         setIsLoadingGeoData(true);
@@ -63,8 +67,29 @@ function Form() {
     }
   }, [mapLat, mapLng]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!cityName || !date) return;
+
+    const newTrip = {
+      cityName,
+      country,
+      date,
+      notes,
+      position: { lat: mapLat, lng: mapLng },
+    };
+
+    await createCity(newTrip);
+    navigate(`/app/cities`);
+  }
+
   if (isLoadingGeoData) {
     return <Spinner />;
+  }
+
+  if (!mapLat && !mapLng) {
+    return <Message message="Click on the map to add a new location" />;
   }
 
   if (geocodingError) {
@@ -72,7 +97,10 @@ function Form() {
   }
 
   return (
-    <form className={styles.form}>
+    <form
+      className={`${styles.form} ${isLoading ? styles.loading : ``}`}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
