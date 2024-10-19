@@ -9,6 +9,7 @@ import { useUrlPosition } from "../hooks/useUrlPosition";
 
 import Button from "./Button";
 import Message from "./Message";
+import Spinner from "./Spinner";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -42,7 +43,9 @@ function Form() {
         const data = await response.json();
 
         if (!data.countryCode) {
-          throw new Error("No country code found, click somewhere else!");
+          throw new Error(
+            "That doesn't seem to be a city, click somewhere else!"
+          );
         }
 
         setCityName(data.city || data.locality || "");
@@ -59,6 +62,10 @@ function Form() {
       fetchGeoData();
     }
   }, [mapLat, mapLng]);
+
+  if (isLoadingGeoData) {
+    return <Spinner />;
+  }
 
   if (geocodingError) {
     return <Message message={geocodingError} />;
