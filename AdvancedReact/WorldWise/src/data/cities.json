@@ -1,15 +1,3 @@
 {
-  "cities": [
-    {
-      "id": "090c",
-      "cityName": "Old Radnor",
-      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
-      "date": "2024-10-19T11:16:44.811Z",
-      "notes": "",
-      "position": {
-        "lat": "52.27352720627613",
-        "lng": "-3.1530761718750004"
-      }
-    }
-  ]
+  "cities": []
 }
