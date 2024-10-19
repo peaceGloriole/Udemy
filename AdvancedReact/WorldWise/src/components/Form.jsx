@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Form.module.css";
 
-import Button from "./Button";
-
 import { useUrlPosition } from "../hooks/useUrlPosition";
+
+import Button from "./Button";
+import Message from "./Message";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -28,22 +29,27 @@ function Form() {
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
   const [emoji, setEmoji] = useState("");
+  const [geocodingError, setGeocodingError] = useState("");
 
   useEffect(() => {
     async function fetchGeoData() {
       try {
         setIsLoadingGeoData(true);
+        setGeocodingError("");
         const response = await fetch(
           `${BASE_URL}?latitude=${mapLat}&longitude=${mapLng}`
         );
         const data = await response.json();
-        console.log(data);
+
+        if (!data.countryCode) {
+          throw new Error("No country code found, click somewhere else!");
+        }
 
         setCityName(data.city || data.locality || "");
         setCountry(data.countryName || "");
         setEmoji(convertToEmoji(data.countryCode || ""));
       } catch (error) {
-        console.error("Failed to fetch geo data:", error);
+        setGeocodingError(error.message);
       } finally {
         setIsLoadingGeoData(false);
       }
@@ -53,6 +59,10 @@ function Form() {
       fetchGeoData();
     }
   }, [mapLat, mapLng]);
+
+  if (geocodingError) {
+    return <Message message={geocodingError} />;
+  }
 
   return (
     <form className={styles.form}>
