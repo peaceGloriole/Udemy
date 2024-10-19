@@ -64,9 +64,12 @@ function CitiesProvider({ children }) {
       const res = await fetch(`${URL}/cities/${id}`, {
         method: "DELETE",
       });
-      const data = await res.json();
 
-      setCities((cities) => [...cities, data]);
+      if (!res.ok) {
+        throw new Error("Failed to delete the city");
+      }
+
+      setCities((cities) => cities.filter((city) => city.id !== id));
     } catch {
       alert("Failed to delete the city");
     } finally {

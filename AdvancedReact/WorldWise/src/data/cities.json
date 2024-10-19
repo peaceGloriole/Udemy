@@ -37,17 +37,6 @@
       "id": "98443197"
     },
     {
-      "id": "5a17",
-      "cityName": "Seia",
-      "country": "Portugal",
-      "date": "2024-10-19T10:43:28.713Z",
-      "notes": "test",
-      "position": {
-        "lat": "40.33916399498308",
-        "lng": "-7.614133099937893"
-      }
-    },
-    {
       "id": "4acf",
       "cityName": "Seia",
       "country": "Portugal",
@@ -89,17 +78,6 @@
       "position": {
         "lat": "51.9634895680887",
         "lng": "-3.9660644531250004"
-      }
-    },
-    {
-      "id": "115b",
-      "cityName": "Bettws y Crwyn",
-      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
-      "date": "2024-10-19T10:49:21.881Z",
-      "notes": "test",
-      "position": {
-        "lat": "52.448518016967256",
-        "lng": "-3.175048828125"
       }
     },
     {
