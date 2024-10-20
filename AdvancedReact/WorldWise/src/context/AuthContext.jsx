@@ -2,13 +2,6 @@ import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
-const FAKE_USER = {
-  name: "Jack",
-  email: "jack@example.com",
-  password: "qwerty",
-  avatar: "https://i.pravatar.cc/100?u=zz",
-};
-
 const initialState = {
   user: null,
   isAuthenticated: false,
@@ -24,6 +17,13 @@ function reducer(state, action) {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
+
+const FAKE_USER = {
+  name: "Jack",
+  email: "jack@example.com",
+  password: "qwerty",
+  avatar: "https://i.pravatar.cc/100?u=zz",
+};
 
 function AuthProvider({ children }) {
   const [{ user, isAuthenticated }, dispatch] = useReducer(
