@@ -35,17 +35,17 @@ function AuthProvider({ children }) {
     if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: `LOGIN`, payload: FAKE_USER });
     }
-
-    function logout() {
-      dispatch({ type: `LOGOUT` });
-    }
-
-    return (
-      <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
-        {children}
-      </AuthContext.Provider>
-    );
   }
+
+  function logout() {
+    dispatch({ type: `LOGOUT` });
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 function useAuth() {
@@ -53,6 +53,8 @@ function useAuth() {
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
+  return context;
 }
 
 export { AuthProvider, useAuth };
