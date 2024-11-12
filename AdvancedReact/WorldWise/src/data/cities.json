@@ -1,3 +1,15 @@
 {
-  "cities": []
+  "cities": [
+    {
+      "id": "d643",
+      "cityName": "Nijemci",
+      "country": "Croatia",
+      "date": "2024-11-05T16:35:04.562Z",
+      "notes": "reihfjrfjwlk;",
+      "position": {
+        "lat": "45.04886722589121",
+        "lng": "19.028320312500004"
+      }
+    }
+  ]
 }
