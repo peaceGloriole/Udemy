@@ -15,7 +15,6 @@ function AccountOperations() {
     loanPurpose: currentLoanPurpose,
     balance,
   } = useSelector((store) => store.account);
-  console.log(balance);
 
   function handleDeposit() {
     if (!depositAmount) {
@@ -28,6 +27,11 @@ function AccountOperations() {
 
   function handleWithdrawal() {
     if (!withdrawalAmount) {
+      return;
+    }
+
+    if (balance < withdrawalAmount) {
+      alert(`Insufficient funds`);
       return;
     }
 
