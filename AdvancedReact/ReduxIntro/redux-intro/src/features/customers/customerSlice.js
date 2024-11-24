@@ -33,7 +33,7 @@ function createCustomer(fullName, ID) {
 function updateCustomer(fullName) {
   return {
     type: `customer/updateCustomer`,
-    payload: { fullName },
+    payload: fullName,
   };
 }
 
