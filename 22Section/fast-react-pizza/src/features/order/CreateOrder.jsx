@@ -1,5 +1,6 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
+import { useState } from "react";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -34,6 +35,8 @@ const fakeCart = [
 const formCss = `w-full border- rounded-lg border-stone-200 px-4 py-1 transition-all duration-300 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2`;
 
 function CreateOrder() {
+  const [withPriority, setWithPriority] = useState(false);
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === `submitting`;
 
@@ -72,10 +75,14 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            checked={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority">
+            {withPriority
+              ? `Your order will be prioritized`
+              : `Want to give your order priority?`}
+          </label>
         </div>
 
         <div>
