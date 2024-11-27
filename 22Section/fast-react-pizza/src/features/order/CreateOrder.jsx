@@ -31,6 +31,8 @@ const fakeCart = [
   },
 ];
 
+const formCss = `w-full border- rounded-lg border-stone-200 px-4 py-1 transition-all duration-300 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2`;
+
 function CreateOrder() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === `submitting`;
@@ -46,13 +48,13 @@ function CreateOrder() {
       <Form method="POST">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input type="text" name="customer" required className={formCss} />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input type="tel" name="phone" required className={formCss} />
           </div>
           {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
@@ -60,12 +62,13 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input type="text" name="address" required className={formCss} />
           </div>
         </div>
 
         <div>
           <input
+            className="mr-1 mt-1 h-4 w-4 accent-yellow-400"
             type="checkbox"
             name="priority"
             id="priority"
