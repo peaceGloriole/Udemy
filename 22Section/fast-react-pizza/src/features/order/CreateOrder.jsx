@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 
@@ -35,7 +34,7 @@ const fakeCart = [
 function CreateOrder() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === `submitting`;
-  // const [withPriority, setWithPriority] = useState(false);
+
   const cart = fakeCart;
 
   const formErrors = useActionData();
