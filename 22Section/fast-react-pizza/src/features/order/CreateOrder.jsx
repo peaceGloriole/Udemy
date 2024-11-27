@@ -79,7 +79,7 @@ function CreateOrder() {
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <button
             disabled={isSubmitting}
-            className="duration-400 inline-block rounded-lg bg-yellow-400 px-4 py-2 font-semibold uppercase tracking-wide text-stone-800 transition-colors hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2"
+            className="duration-400 mt-1 inline-block rounded-lg bg-yellow-400 px-4 py-2 font-semibold uppercase tracking-wide text-stone-600 transition-colors hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 active:bg-stone-600 active:text-yellow-400"
           >
             {isSubmitting ? `Placing your order..` : `Order now`}
           </button>
@@ -108,10 +108,8 @@ export async function action({ request }) {
     return errors;
   }
 
-  // const newOrder = await createOrder(order);
+  const newOrder = await createOrder(order);
 
-  // return redirect(`/order/${newOrder.id}`);
-
-  return null;
+  return redirect(`/order/${newOrder.id}`);
 }
 export default CreateOrder;
