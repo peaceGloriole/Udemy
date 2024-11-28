@@ -25,7 +25,7 @@ function CreateUser() {
       <div
         className={`mt-2 transition-opacity duration-300 ${username === `` ? `opacity-0` : `opacity-100`}`}
       >
-        <Button to={`/menu`} disabled={username === ``}>
+        <Button type="primary" to={`/menu`} disabled={username === ``}>
           Start ordering
         </Button>
       </div>
