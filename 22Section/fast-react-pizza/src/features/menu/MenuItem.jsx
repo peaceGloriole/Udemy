@@ -28,7 +28,7 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          <Button type="small">Добави в количка</Button>
+          {!soldOut && <Button type="small">Добави в количка</Button>}
         </div>
       </div>
     </li>
