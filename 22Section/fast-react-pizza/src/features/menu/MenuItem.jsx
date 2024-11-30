@@ -24,11 +24,11 @@ function MenuItem({ pizza }) {
             <p className="text-sm">{formatCurrency(unitPrice)}</p>
           ) : (
             <p className="text-sm font-medium uppercase text-red-500">
-              Sold out
+              Няма наличност
             </p>
           )}
 
-          <Button type="small">Add to cart</Button>
+          <Button type="small">Добави в количка</Button>
         </div>
       </div>
     </li>

@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function EmptyCart() {
   return (
     <div>
-      <Link to="/menu">&larr; Back to menu</Link>
+      <Link to="/menu">&larr; Обратно към менюто</Link>
 
-      <p>Your cart is still empty. Start adding some pizzas :)</p>
+      <p>Количката ти все още е празна, добави пица :)</p>
     </div>
   );
 }

@@ -1,11 +1,25 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { updateName } from "./userSlice";
+
 import Button from "../../UI/Button";
 
 function CreateUser() {
   const [username, setUsername] = useState(``);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!username) {
+      return;
+    }
+
+    dispatch(updateName(username));
+    navigate(`/menu`);
   }
 
   return (
@@ -25,7 +39,7 @@ function CreateUser() {
       <div
         className={`mt-2 transition-opacity duration-300 ${username === `` ? `opacity-0` : `opacity-100`}`}
       >
-        <Button type="primary" to={`/menu`} disabled={username === ``}>
+        <Button type="primary" disabled={username === ``}>
           Start ordering
         </Button>
       </div>

@@ -17,12 +17,12 @@ export default function SearchOrder() {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        placeholder="Search your order"
+        placeholder="Потърси твоята заявка"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="mr-2 w-28 rounded-xl px-3 py-1 text-sm transition-all duration-300 placeholder:text-stone-900 focus:outline-none focus:ring focus:ring-yellow-600 focus:ring-opacity-50 sm:w-64 sm:focus:w-72"
       />
-      <button>Search</button>
+      <button>Търси</button>
     </form>
   );
 }

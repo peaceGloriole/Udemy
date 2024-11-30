@@ -46,19 +46,21 @@ function CreateOrder() {
 
   return (
     <div className="px-4 py-6">
-      <h2 className="mb-6 text-xl font-semibold">Ready to order? Let`s go!</h2>
+      <h2 className="mb-6 text-xl font-semibold">
+        Готов ли си да поръчаш? Да започваме!
+      </h2>
 
       <Form method="POST">
         <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
+          <label className="sm:basis-40">Твоето име</label>
           <input type="text" name="customer" required className="input grow" />
         </div>
 
         <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
           {formErrors?.phone ? (
-            <label className="text-red-500 sm:basis-40">Phone number</label>
+            <label className="text-red-500 sm:basis-40">Телефонен номер</label>
           ) : (
-            <label className="sm:basis-40">Phone number</label>
+            <label className="sm:basis-40">Телефонен номер</label>
           )}
           <div className="grow">
             <input type="tel" name="phone" required className="input w-full" />
@@ -72,7 +74,7 @@ function CreateOrder() {
         </div>
 
         <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">Address</label>
+          <label className="sm:basis-40">Адрес</label>
           <div className="grow">
             <input
               type="text"
@@ -94,15 +96,15 @@ function CreateOrder() {
           />
           <label className="mt-1 font-medium" htmlFor="priority">
             {withPriority
-              ? `Your order will be prioritized`
-              : `Want to give your order priority?`}
+              ? `Твоята заявка ще бъде приоритизирана`
+              : `Искаш ли твоята заявка да е с приоритет?`}
           </label>
         </div>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button type="primary" disabled={isSubmitting}>
-            {isSubmitting ? `Placing your order..` : `Order now`}
+            {isSubmitting ? `Бързам бързам..` : `Поръчай сега`}
           </Button>
         </div>
       </Form>
