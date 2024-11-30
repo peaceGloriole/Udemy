@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { formatCurrency } from "../../utils/helpers";
-import { useDispatch } from "react-redux";
 import Button from "../../UI/Button";
 import { addToCart } from "../cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 function MenuItem({ pizza }) {
   const dispatch = useDispatch();
