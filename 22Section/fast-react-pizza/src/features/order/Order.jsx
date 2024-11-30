@@ -45,8 +45,8 @@ function Order() {
       <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-300 px-4 py-3">
         <p className="font-medium">
           {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
-            : `Order should have arrived`}
+            ? `Само ${calcMinutesLeft(estimatedDelivery)} минути до пристигането`
+            : `Поръчката трябва да е пристигнала`}
         </p>
         <p className="text-xs font-semibold text-stone-500">
           (Estimated delivery: {formatDate(estimatedDelivery)})
