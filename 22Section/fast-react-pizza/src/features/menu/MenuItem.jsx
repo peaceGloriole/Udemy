@@ -45,7 +45,7 @@ function MenuItem({ pizza }) {
 
           {currentQuantity > 0 && <DeleteItem type={`small`} pizzaId={id} />}
 
-          {!soldOut && (
+          {!soldOut && !currentQuantity && (
             <Button onClick={handleAddToCart} type="small">
               Добави в количка
             </Button>
