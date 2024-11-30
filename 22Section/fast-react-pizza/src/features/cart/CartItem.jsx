@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
-import Button from "../../UI/Button";
 import { formatCurrency } from "../../utils/helpers";
 import { deleteItem } from "./cartSlice";
+import DeleteItem from "./DeleteItem";
 
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
@@ -21,9 +21,7 @@ function CartItem({ item }) {
       </p>
       <div className="flex items-center justify-between sm:gap-6">
         <p className="text-sm font-semibold">{formatCurrency(totalPrice)}</p>
-        <Button type="small" onClick={deleteHandler(pizzaId)}>
-          Изтрий
-        </Button>
+        <DeleteItem type={`small`} onClick={deleteHandler(pizzaId)} />
       </div>
     </li>
   );
