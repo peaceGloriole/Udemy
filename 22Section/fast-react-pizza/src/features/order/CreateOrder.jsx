@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
-import { createOrder } from "../../services/apiRestaurant";
 import { useState } from "react";
+import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../UI/Button";
 
 // https://uibakery.io/regex-library/phone-number
@@ -129,9 +129,8 @@ export async function action({ request }) {
     return errors;
   }
 
-  // const newOrder = await createOrder(order);
+  const newOrder = await createOrder(order);
 
-  // return redirect(`/order/${newOrder.id}`);
-  return null;
+  return redirect(`/order/${newOrder.id}`);
 }
 export default CreateOrder;
