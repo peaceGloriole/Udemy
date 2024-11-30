@@ -1,11 +1,24 @@
+/* eslint-disable react/prop-types */
 import { formatCurrency } from "../../utils/helpers";
-
-import PropTypes from "prop-types";
-
+import { useDispatch } from "react-redux";
 import Button from "../../UI/Button";
+import { addToCart } from "../cart/cartSlice";
 
 function MenuItem({ pizza }) {
+  const dispatch = useDispatch();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  const handleAddToCart = () => {
+    const newItem = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: 1 * unitPrice,
+    };
+
+    dispatch(addToCart(newItem));
+  };
 
   return (
     <li className="flex gap-4 py-2">
@@ -28,22 +41,15 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          {!soldOut && <Button type="small">Добави в количка</Button>}
+          {!soldOut && (
+            <Button onClick={handleAddToCart} type="small">
+              Добави в количка
+            </Button>
+          )}
         </div>
       </div>
     </li>
   );
 }
-
-MenuItem.propTypes = {
-  pizza: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    unitPrice: PropTypes.number.isRequired,
-    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-    soldOut: PropTypes.bool.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default MenuItem;

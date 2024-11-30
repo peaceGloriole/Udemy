@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 const base = `duration-400 text-sm mt-1 inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-600 transition-colors hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 active:bg-stone-600 active:text-yellow-400`;
-export default function Button({ children, disabled, to, type }) {
+export default function Button({ children, disabled, to, type, onClick }) {
   const styles = {
     primary: base + ` px-4 py-2 md:px-4 md:py-2`,
     small: base + ` py-2 px-3 md:px-3 md:py-2 text-xs`,
@@ -14,6 +14,14 @@ export default function Button({ children, disabled, to, type }) {
       <Link to={to} className={styles[type]}>
         {children}
       </Link>
+    );
+  }
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} disabled={disabled} className={styles[type]}>
+        {children}
+      </button>
     );
   }
 
