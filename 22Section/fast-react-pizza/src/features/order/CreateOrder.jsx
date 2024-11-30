@@ -102,10 +102,17 @@ function CreateOrder() {
             checked={withPriority}
             onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label className="mt-1 font-medium" htmlFor="priority">
-            {withPriority
-              ? `Твоята заявка ще бъде приоритизирана`
-              : `Искаш ли твоята заявка да е с приоритет?`}
+          <label className="mt-1 text-sm font-medium" htmlFor="priority">
+            {withPriority ? (
+              `Твоята заявка ще бъде приоритизирана`
+            ) : (
+              <div className="flex flex-col">
+                Искаш ли твоята заявка да е с приоритет?
+                <span className="text-xs underline">
+                  Цена за приоритетна обработка е 12 лева
+                </span>
+              </div>
+            )}
           </label>
         </div>
 
