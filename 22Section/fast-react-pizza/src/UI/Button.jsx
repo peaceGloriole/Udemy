@@ -6,7 +6,7 @@ export default function Button({ children, disabled, to, type }) {
   const styles = {
     primary: base + ` px-4 py-2 md:px-4 md:py-2`,
     small: base + ` py-2 px-3 md:px-3 md:py-2 text-xs`,
-    secondary: `rounded-full border-2 border-stone-300 active:opacity-0 bg-stone-200 text-stone-600 hover:bg-zinc-200 focus:bg-gray-400 focus:text-white active:bg-gray-300 active:text-white px-4 py-2 md:px-4 md:py-2`,
+    secondary: ` py-2 px-3 md:px-3 md:py-2 duration-400 mt-1 inline-block rounded-full bg-stone-300 font-semibold uppercase tracking-wide text-stone-600 transition-colors hover:bg-stone-400 focus:bg-stone-300 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2 active:bg-stone-400 active:text-stone-100`,
   };
 
   if (to) {
