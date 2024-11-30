@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
-const base = `duration-400 text-sm mt-1 inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-600 transition-colors hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 active:bg-stone-600 active:text-yellow-400`;
+const base = `duration-400 text-sm mt-1 inline-block rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-600 transition-colors hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 active:bg-yellow-100 active:text-stone-600`;
 export default function Button({ children, disabled, to, type, onClick }) {
   const styles = {
     primary: base + ` px-4 py-2 md:px-4 md:py-2`,

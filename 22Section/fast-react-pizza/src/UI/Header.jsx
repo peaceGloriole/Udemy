@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between border-b-2 border-stone-700 bg-yellow-500 px-4 py-3 uppercase sm:px-6">
       <Link to="/" className="text-center font-extrabold tracking-[8px]">
-        Fast Pizza Co.
+        Бързата Пица.
       </Link>
 
       <SearchOrder />

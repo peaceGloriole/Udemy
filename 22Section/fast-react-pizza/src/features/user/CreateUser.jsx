@@ -25,12 +25,12 @@ function CreateUser() {
   return (
     <form onSubmit={handleSubmit}>
       <p className="mb-4 text-sm text-stone-600 md:text-base">
-        👋 Welcome! Please start by telling us your name:
+        👋 Добре дошли! Моля започнете като въведете Вашето име:
       </p>
 
       <input
         type="text"
-        placeholder="Your full name"
+        placeholder="Твоето име"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className="input"
@@ -40,7 +40,7 @@ function CreateUser() {
         className={`mt-2 transition-opacity duration-300 ${username === `` ? `opacity-0` : `opacity-100`}`}
       >
         <Button type="primary" disabled={username === ``}>
-          Start ordering
+          Прегледай менюто
         </Button>
       </div>
     </form>
