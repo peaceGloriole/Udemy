@@ -4,8 +4,9 @@ import { useState } from "react";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../UI/Button";
 import { useSelector } from "react-redux";
-import { clearCart, getCart } from "../cart/cartSlice";
+import { clearCart, getCart, getTotalCartPrice } from "../cart/cartSlice";
 import store from "../../store";
+import { formatCurrency } from "../../utils/helpers";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -23,7 +24,8 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   const cart = useSelector(getCart);
-  console.log(cart);
+  const totalCartPrice = useSelector(getTotalCartPrice);
+  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
 
   return (
     <div className="px-4 py-6">
@@ -98,7 +100,9 @@ function CreateOrder() {
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button type="primary" disabled={isSubmitting}>
-            {isSubmitting ? `Бързам бързам..` : `Поръчай сега`}
+            {isSubmitting
+              ? `Бързам бързам..`
+              : `Поръчай сега за ${formatCurrency(totalCartPrice + priorityPrice)} лв.`}
           </Button>
         </div>
       </Form>
