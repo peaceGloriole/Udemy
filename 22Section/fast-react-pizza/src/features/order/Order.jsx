@@ -28,16 +28,16 @@ function Order() {
   return (
     <div className="space-y-6 px-4 py-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">Order #{id} status</h2>
+        <h2 className="text-xl font-semibold">Статус на поръчка #{id}</h2>
 
         <div className="space-x-2">
           {priority && (
             <span className="rounded-full bg-red-500 px-3 py-1 font-semibold uppercase tracking-wide text-red-50">
-              Priority
+              Приоритетна
             </span>
           )}
           <span className="rounded-full bg-green-500 px-3 py-1 font-semibold uppercase tracking-wide text-green-50">
-            {status} order
+            {status} поръчка
           </span>
         </div>
       </div>
@@ -49,7 +49,7 @@ function Order() {
             : `Поръчката трябва да е пристигнала`}
         </p>
         <p className="text-xs font-semibold text-stone-500">
-          (Estimated delivery: {formatDate(estimatedDelivery)})
+          (Приблизително време: {formatDate(estimatedDelivery)})
         </p>
       </div>
 
@@ -61,15 +61,15 @@ function Order() {
 
       <div className="space-y-2 bg-stone-300 px-4 py-4">
         <p className="text-sm font-medium text-stone-500">
-          Price pizza: {formatCurrency(orderPrice)}
+          Цена на поръчката: {formatCurrency(orderPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-500">
-            Price priority: {formatCurrency(priorityPrice)}
+            Цена за приоритизация: {formatCurrency(priorityPrice)}
           </p>
         )}
         <p className="font-bold">
-          To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
+          Колко трябва да платиш: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
     </div>

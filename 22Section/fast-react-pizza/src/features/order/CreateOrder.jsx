@@ -4,36 +4,14 @@ import { useState } from "react";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../UI/Button";
 import { useSelector } from "react-redux";
+import { clearCart, getCart } from "../cart/cartSlice";
+import store from "../../store";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
   );
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: `Mediterranean`,
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: `Vegetale`,
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: `Spinach and Mushroom`,
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
 
 function CreateOrder() {
   const username = useSelector((state) => state.user.username);
@@ -42,9 +20,10 @@ function CreateOrder() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === `submitting`;
 
-  const cart = fakeCart;
-
   const formErrors = useActionData();
+
+  const cart = useSelector(getCart);
+  console.log(cart);
 
   return (
     <div className="px-4 py-6">
@@ -109,7 +88,7 @@ function CreateOrder() {
               <div className="flex flex-col">
                 Искаш ли твоята заявка да е с приоритет?
                 <span className="text-xs underline">
-                  Цена за приоритетна обработка е 12 лева
+                  Цена за приоритетна обработка е 20% от общата сума
                 </span>
               </div>
             )}
@@ -147,6 +126,8 @@ export async function action({ request }) {
   }
 
   const newOrder = await createOrder(order);
+
+  store.dispatch(clearCart());
 
   return redirect(`/order/${newOrder.id}`);
 }
