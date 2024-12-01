@@ -22,6 +22,10 @@ const cartSlice = createSlice({
     decItemQty(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
       item.quantity--;
+
+      if (item.quantity === 0) {
+        cartSlice.caseReducers.deleteItem(state, action);
+      }
     },
     clearCart(state) {
       state.cart = [];

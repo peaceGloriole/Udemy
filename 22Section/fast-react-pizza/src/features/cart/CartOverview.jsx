@@ -44,7 +44,7 @@ function CartOverview() {
       </span>
       <Link
         to="/cart"
-        className={`sad text-sm font-semibold ${isItemAdded ? `animate-pulse text-yellow-400` : `text-yellow-600`}`}
+        className={`sad text-sm font-semibold ${isItemAdded ? `animate-pulse text-yellow-400` : `text-black-200`}`}
       >
         <span className="mr-2 text-xl">&rarr;</span>Отвори количка
       </Link>
