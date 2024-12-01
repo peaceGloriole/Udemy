@@ -44,7 +44,15 @@ function MenuItem({ pizza }) {
             </p>
           )}
 
-          {currentQuantity > 0 && <DeleteItem type={`small`} pizzaId={id} />}
+          {currentQuantity > 0 && (
+            <div className="flex items-center gap-2 sm:gap-6">
+              <UpdateItemQuantity
+                pizzaId={id}
+                currentQuantity={currentQuantity}
+              />
+              <DeleteItem type={`small`} pizzaId={id} />
+            </div>
+          )}
 
           {!soldOut && !currentQuantity && (
             <Button onClick={handleAddToCart} type="small">
