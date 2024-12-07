@@ -16,6 +16,7 @@ export default function App() {
   return (
     <>
       <GlobalStyles />
+
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
