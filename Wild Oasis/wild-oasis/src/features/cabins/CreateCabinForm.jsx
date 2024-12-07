@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 
 import { createCabin } from "../../services/apiCabins";
 
@@ -48,6 +49,7 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
+  const [isFormVisible, setIsFormVisible] = useState(true);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
 
@@ -61,17 +63,22 @@ function CreateCabinForm() {
         queryKey: [`cabin`],
       });
       reset();
+      setIsFormVisible(false);
     },
     onError: (error) => {
       toast.error(`Cabin could not be added: ${error.message}`);
     },
   });
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
     // console.log(errors);
+  }
+
+  if (!isFormVisible) {
+    return null;
   }
 
   return (
@@ -81,6 +88,7 @@ function CreateCabinForm() {
         <Input
           type="text"
           id="name"
+          disabled={isLoading}
           {...register(`name`, {
             required: `This field is required`,
           })}
@@ -93,6 +101,7 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="maxCapacity"
+          disabled={isLoading}
           {...register(`maxCapacity`, {
             required: `This field is required`,
             min: {
@@ -111,6 +120,7 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="regularPrice"
+          disabled={isLoading}
           {...register(`regularPrice`, {
             required: `This field is required`,
           })}
@@ -125,6 +135,7 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="discount"
+          disabled={isLoading}
           defaultValue={0}
           {...register(`discount`, {
             required: `This field is required`,
@@ -146,6 +157,7 @@ function CreateCabinForm() {
         <Textarea
           type="number"
           id="description"
+          disabled={isLoading}
           defaultValue=""
           {...register(`description`, {
             required: `This field is required`,
@@ -158,7 +170,14 @@ function CreateCabinForm() {
 
       <FormRow>
         <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          disabled={isLoading}
+          {...register(`image`, {
+            required: `This field is required`,
+          })}
+        />
       </FormRow>
 
       <FormRow>
