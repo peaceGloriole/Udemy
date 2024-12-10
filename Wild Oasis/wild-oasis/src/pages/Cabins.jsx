@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function Cabins() {
   const [show, setShow] = useState(false);
+
   return (
     <>
       <Row type="horizontal">

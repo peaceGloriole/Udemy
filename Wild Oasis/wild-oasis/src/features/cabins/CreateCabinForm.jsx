@@ -1,9 +1,4 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-
-import { createEditCabin } from "../../services/apiCabins";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -11,48 +6,21 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { FormRow, Label, Error } from "./CabinStyle";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { id: editId, ...editValues } = cabinToEdit;
+
   const isEditSession = Boolean(editId);
-  const [isFormVisible, setIsFormVisible] = useState(true);
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
+  const { register, handleSubmit, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
+
+  const { isCreateLoading, createMutate } = useCreateCabin();
+  const { isEditLoading, editMutate } = useEditCabin();
+
   const { errors } = formState;
-
-  const queryClient = useQueryClient();
-  const { isLoading: isCreateLoading, mutate: createMutate } = useMutation({
-    mutationFn: (newCabin) => createEditCabin(newCabin),
-    onSuccess: () => {
-      toast.success(`Cabin added successfully!`);
-
-      queryClient.invalidateQueries({
-        queryKey: [`cabin`],
-      });
-      reset();
-      setIsFormVisible(false);
-    },
-    onError: (error) => {
-      toast.error(`Cabin could not be added: ${error.message}`);
-    },
-  });
-
-  const { isLoading: isEditLoading, mutate: editMutate } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success(`Cabin updated successfully!`);
-
-      queryClient.invalidateQueries({
-        queryKey: [`cabin`],
-      });
-      reset();
-      setIsFormVisible(false);
-    },
-    onError: (error) => {
-      toast.error(`Cabin could not be updated: ${error.message}`);
-    },
-  });
 
   const isWorking = isCreateLoading || isEditLoading;
 
@@ -74,10 +42,6 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   function onError(errors) {
     // console.log(errors);
-  }
-
-  if (!isFormVisible) {
-    return null;
   }
 
   return (

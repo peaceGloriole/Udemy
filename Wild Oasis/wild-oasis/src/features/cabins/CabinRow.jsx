@@ -9,6 +9,7 @@ import { Cabin, Discount, Img, Price, StyledDiv, TableRow } from "./CabinStyle";
 
 export default function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
+  const { isDeleting, deleteMutate } = useDeleteCabin();
 
   const {
     id: cabinId,
@@ -18,8 +19,6 @@ export default function CabinRow({ cabin }) {
     discount,
     image,
   } = cabin;
-
-  const { isDeleting, deleteMutate } = useDeleteCabin();
 
   return (
     <>
