@@ -7,10 +7,12 @@ import Button from "../../ui/Button";
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { Cabin, Discount, Img, Price, StyledDiv, TableRow } from "./CabinStyle";
+import { useCreateCabin } from "./useCreateCabin";
 
 export default function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteMutate } = useDeleteCabin();
+  const { isCreateLoading, createMutate } = useCreateCabin();
 
   const {
     id: cabinId,
@@ -19,7 +21,19 @@ export default function CabinRow({ cabin }) {
     regularPrice,
     discount,
     image,
+    description,
   } = cabin;
+
+  function handleDuplicate() {
+    createMutate({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -34,7 +48,12 @@ export default function CabinRow({ cabin }) {
           <span>&mdash;</span>
         )}
         <StyledDiv>
-          <Button size={`small`} variation={`secondary`}>
+          <Button
+            disabled={isCreateLoading}
+            onClick={handleDuplicate}
+            size={`small`}
+            variation={`secondary`}
+          >
             <HiOutlineDuplicate />
           </Button>
           <Button

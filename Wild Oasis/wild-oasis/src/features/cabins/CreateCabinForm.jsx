@@ -38,14 +38,14 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id: editId,
         },
         {
-          onSuccess: (data) => reset(),
+          onSuccess: () => reset(),
         }
       );
     } else {
       createMutate(
         { ...data, image: image },
         {
-          onSuccess: (data) => reset(),
+          onSuccess: () => reset(),
         }
       );
     }
