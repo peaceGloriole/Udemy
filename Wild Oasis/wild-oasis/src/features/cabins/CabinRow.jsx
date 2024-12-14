@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HiPencil, HiOutlineDuplicate, HiTrash } from "react-icons/hi";
 
 import { formatCurrency } from "../../utils/helpers";
 
@@ -33,9 +34,22 @@ export default function CabinRow({ cabin }) {
           <span>&mdash;</span>
         )}
         <StyledDiv>
-          <Button onClick={() => setShowForm((show) => !show)}>Edit</Button>
-          <Button disabled={isDeleting} onClick={() => deleteMutate(cabinId)}>
-            Delete
+          <Button size={`small`} variation={`secondary`}>
+            <HiOutlineDuplicate />
+          </Button>
+          <Button
+            size={`small`}
+            variation={`secondary`}
+            onClick={() => setShowForm((show) => !show)}
+          >
+            <HiPencil />
+          </Button>
+          <Button
+            variation={`danger`}
+            disabled={isDeleting}
+            onClick={() => deleteMutate(cabinId)}
+          >
+            <HiTrash />
           </Button>
         </StyledDiv>
       </TableRow>

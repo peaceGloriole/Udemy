@@ -35,7 +35,7 @@ const variations = {
     border: 1px solid var(--color-grey-200);
 
     &:hover {
-      background-color: var(--color-grey-50);
+      background-color: var(--color-grey-200);
     }
   `,
   danger: css`
@@ -58,8 +58,8 @@ const Button = styled.button`
 `;
 
 Button.defaultProps = {
-  size: "medium",
-  variation: "primary",
+  size: `medium`,
+  variation: `primary`,
 };
 
 export default Button;
