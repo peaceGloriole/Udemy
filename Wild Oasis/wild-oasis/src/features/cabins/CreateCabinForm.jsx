@@ -5,38 +5,49 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
+
 import { FormRow, Label, Error } from "./CabinStyle";
+
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
 function CreateCabinForm({ cabinToEdit = {} }) {
+  const { isCreateLoading, createMutate } = useCreateCabin();
+  const { isEditLoading, editMutate } = useEditCabin();
+  const isWorking = isCreateLoading || isEditLoading;
+
   const { id: editId, ...editValues } = cabinToEdit;
 
   const isEditSession = Boolean(editId);
-  const { register, handleSubmit, getValues, formState } = useForm({
+  const { register, handleSubmit, getValues, formState, reset } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
 
-  const { isCreateLoading, createMutate } = useCreateCabin();
-  const { isEditLoading, editMutate } = useEditCabin();
-
   const { errors } = formState;
-
-  const isWorking = isCreateLoading || isEditLoading;
 
   function onSubmit(data) {
     const image = typeof data.image === `string` ? data.image : data.image[0];
 
     if (isEditSession) {
-      editMutate({
-        newCabinData: {
-          ...data,
-          image,
+      editMutate(
+        {
+          newCabinData: {
+            ...data,
+            image,
+          },
+          id: editId,
         },
-        id: editId,
-      });
+        {
+          onSuccess: (data) => reset(),
+        }
+      );
     } else {
-      createMutate({ ...data, image: image });
+      createMutate(
+        { ...data, image: image },
+        {
+          onSuccess: (data) => reset(),
+        }
+      );
     }
   }
 
